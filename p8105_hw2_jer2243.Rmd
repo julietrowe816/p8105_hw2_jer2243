@@ -5,26 +5,32 @@ date: "2023-09-27"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Load tidyverse
+```{r}
+library(tidyverse)
+library(dplyr)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Import and Clean pols-month Data
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r setup}
+pols_df =
+  read_csv("fivethirtyeight_datasets/pols-month.csv") |>
+  separate(mon, into=c("year", "month", "day"), sep="-") |>
+  mutate(
+    month = replace(month, month=="01", "January"),
+    month = replace(month, month=="02", "February"),
+    month = replace(month, month=="03", "March"),
+    month = replace(month, month=="04", "April"),
+    month = replace(month, month=="05", "May"),
+    month = replace(month, month=="06", "June"),
+    month = replace(month, month=="07", "July"),
+    month = replace(month, month=="08", "August"),
+    month = replace(month, month=="09", "September"),
+    month = replace(month, month=="10", "October"),
+    month = replace(month, month=="11", "November"),
+    month = replace(month, month=="12", "December")) |>
+  
+  
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
