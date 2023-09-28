@@ -32,8 +32,15 @@ pols_df =
     month = replace(month, month=="11", "November"),
     month = replace(month, month=="12", "December"),
     president = case_when(prez_dem == "1" ~ 'dem',
-                          prez_gop == "1" ~ 'gop'))
+                          prez_gop == "1" ~ 'gop')) |>
+select(-prez_dem, -prez_gop, -day)
 
 pols_df
-                      
 ```
+
+#Import and clean snp dataset
+
+```{r}
+
+```
+
