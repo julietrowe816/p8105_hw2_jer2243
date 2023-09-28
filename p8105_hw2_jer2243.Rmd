@@ -42,6 +42,20 @@ pols_df
 
 ```{r}
 snp_df =
-  read_csv("fivethirtyeight_datasets/snp.csv")
+  read_csv("fivethirtyeight_datasets/snp.csv") |>
+  separate(date, into=c("year", "month", "day"), sep="/") |>
+  mutate(
+    month = replace(month, month=="1", "January"),
+    month = replace(month, month=="2", "February"),
+    month = replace(month, month=="3", "March"),
+    month = replace(month, month=="4", "April"),
+    month = replace(month, month=="5", "May"),
+    month = replace(month, month=="6", "June"),
+    month = replace(month, month=="7", "July"),
+    month = replace(month, month=="8", "August"),
+    month = replace(month, month=="9", "September"),
+    month = replace(month, month=="10", "October"),
+    month = replace(month, month=="11", "November"),
+    month = replace(month, month=="12", "December"))
 ```
 
