@@ -41,6 +41,7 @@ pols_df
 #Import and clean snp dataset
 
 ```{r}
-
+snp_df =
+  read_csv("fivethirtyeight_datasets/snp.csv")
 ```
 
