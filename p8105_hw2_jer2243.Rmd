@@ -30,7 +30,10 @@ pols_df =
     month = replace(month, month=="09", "September"),
     month = replace(month, month=="10", "October"),
     month = replace(month, month=="11", "November"),
-    month = replace(month, month=="12", "December")) |>
-  
-  
+    month = replace(month, month=="12", "December"),
+    president = case_when(prez_dem == "1" ~ 'dem',
+                          prez_gop == "1" ~ 'gop'))
+
+pols_df
+                      
 ```
