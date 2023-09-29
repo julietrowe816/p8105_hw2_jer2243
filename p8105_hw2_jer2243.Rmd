@@ -5,6 +5,8 @@ date: "2023-09-27"
 output: github_document
 ---
 
+#Problem 1
+
 ## Load tidyverse
 ```{r}
 library(tidyverse)
@@ -85,6 +87,17 @@ unemployment_tidy_data =
                       Oct = "October",
                       Nov = "November",
                       Dec = "December"))
+
+```
+
+
+#Problem 2
+
+##Import Mr. Trash Wheel Data
+
+```{r}
+library(readxl)
+trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", range="A2:N550")
 
 ```
 
