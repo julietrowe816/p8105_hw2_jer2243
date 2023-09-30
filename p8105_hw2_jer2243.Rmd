@@ -58,7 +58,9 @@ snp_df =
     month = replace(month, month=="9", "September"),
     month = replace(month, month=="10", "October"),
     month = replace(month, month=="11", "November"),
-    month = replace(month, month=="12", "December"))
+    month = replace(month, month=="12", "December"),
+    year = ifelse(as.numeric(year)>= 0 & as.numeric(year) <= 15, as.numeric(year) + 2000, as.numeric(year) + 1900)) |>
+select(-day)
 
 snp_df
 ```
@@ -86,10 +88,24 @@ unemployment_tidy_data =
                       Sep = "September",
                       Oct = "October",
                       Nov = "November",
-                      Dec = "December"))
+                      Dec = "December"),
+         year=Year) |>
+  select(year, everything()) |>
+  select(-Year)
 
-unemployment_df
+unemployment_tidy_data
 
+```
+
+##Joining datasets
+```{r}
+pols_df |>
+  mutate(year = as.numeric(year))
+
+snp_df |>
+  mutate(year = as.numeric(year))
+
+pols_snp_df = full_join(pols_df, snp_df, by=c("year", "month"))
 ```
 
 
