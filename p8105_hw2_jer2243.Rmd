@@ -88,16 +88,41 @@ unemployment_tidy_data =
                       Nov = "November",
                       Dec = "December"))
 
+unemployment_df
+
 ```
 
 
 #Problem 2
 
-##Import Mr. Trash Wheel Data
+##Import and clean Mr. Trash Wheel Data
 
 ```{r}
 library(readxl)
-trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", range="A2:N550")
+mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
 
+mr_trashwheel_data |>
+  mutate(homes_powered = (`Weight (tons)`*500/30))
+```
+
+##Import and clean Professor Trash Wheel Data
+
+```{r}
+library(readxl)
+prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M97")
+
+prof_trashwheel_data |>
+  mutate(homes_powered = (`Weight (tons)`*500/30))
+
+```
+
+##Import and clean Gwynnda data
+
+```{r}
+library(readxl)
+gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=3, range="A2:K110")
+
+gwynnda_data |>
+  mutate(homes_powered = (`Weight (tons)`*500/30))
 ```
 
