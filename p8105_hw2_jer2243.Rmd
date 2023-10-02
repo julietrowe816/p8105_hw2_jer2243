@@ -80,9 +80,10 @@ The `pols` data has `r nrow(pols)` observations and `r ncol(pols)` variables and
 library(readxl)
 mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
 
-mr_trashwheel_data |>
+mr_trashwheel_data_tidy = mr_trashwheel_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
-         trashwheel = 1)
+         trashwheel = 1,
+         Year = as.numeric(Year))
   
 ```
 
@@ -112,11 +113,15 @@ gwynnda_data |>
 ## Join the 3 trashwheel datasets
 ```{r}
 trashwheel_data =
-  full_join(mr_trashwheel_data, prof_trashwheel_data, gwynnda_data, by = "Dumpster")
+  bind_rows(mr_trashwheel_data_tidy, prof_trashwheel_data, gwynnda_data) |>
+  janitor::clean_names()
+
+glimpse(trashwheel_data)
 
 ```
 
- DATA DESCRIPTION HERE
+This combined dataset has data from all three trashwheels, including 751 observations and 17 variables. Some key variables include dumpster, month, year, date, weight_tons, and homes_powered.
+
  
  
 
