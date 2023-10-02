@@ -5,7 +5,7 @@ date: "2023-09-27"
 output: github_document
 ---
 
-#Problem 1
+# Problem 1
 
 ## Load tidyverse
 ```{r}
@@ -33,7 +33,7 @@ pols =
   select(year, month, everything(), -day, -starts_with("prez")) 
 ```
 
-#Import and clean snp dataset
+## Import and clean snp dataset
 
 ```{r}
 snp = 
@@ -45,7 +45,7 @@ snp =
 ```
 
 
-#Import and clean the unemployment dataset
+## Import and clean the unemployment dataset
 
 ```{r}
 unemployment = 
@@ -61,7 +61,7 @@ unemployment =
 ```
 
 
-##Joining datasets
+## Joining datasets
 ```{r merge_538}
 data_538 = 
   left_join(pols, snp) |>
@@ -72,36 +72,39 @@ str(data_538)
 
 The `pols` data has `r nrow(pols)` observations and `r ncol(pols)` variables and tells us about the party affiliation distribution (democrat or republican) for governors and senators for a given year from years `r range(pols$year)[1]` to `r range(pols$year)[2]`. It also tells us whether the sitting president was a democrat or republican. The `snp` data has `r nrow(snp)` observations and `r ncol(snp)` variables, ranging from years `r range(snp$year)[1]` to `r range(snp$year)[2]`. The `unemployment` data has `r nrow(unemployment)` observations and `r ncol(unemployment)` variables ranging from years `r range(unemployment$year)[1]` to `r range(unemployment$year)[2]`. In Januarys in or after 1975 in which a democrat was president, the **average unemployment rate was `r filter(data_538, month == "January", year >= 1975, president == "dem") |> pull(unemployment) |> mean() |> round(2)`**.  The average unemployment rate over the same time period in which a republican was president was `r filter(data_538, month == "January", year >= 1975, president == "gop") |> pull(unemployment) |> mean() |> round(2)`.
 
-#Problem 2
+# Problem 2
 
-##Import and clean Mr. Trash Wheel Data
+## Import and clean Mr. Trash Wheel Data
 
 ```{r}
 library(readxl)
 mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
 
 mr_trashwheel_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30))
+  mutate(homes_powered = (`Weight (tons)`*500/30),
+         trashwheel = 1)
 ```
 
-##Import and clean Professor Trash Wheel Data
+## Import and clean Professor Trash Wheel Data
 
 ```{r}
 library(readxl)
 prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M97")
 
 prof_trashwheel_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30))
+  mutate(homes_powered = (`Weight (tons)`*500/30),
+         trashwheel = 2)
 
 ```
 
-##Import and clean Gwynnda data
+## Import and clean Gwynnda data
 
 ```{r}
 library(readxl)
 gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=3, range="A2:K110")
 
 gwynnda_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30))
+  mutate(homes_powered = (`Weight (tons)`*500/30),
+         trashwheel=3)
 ```
 
