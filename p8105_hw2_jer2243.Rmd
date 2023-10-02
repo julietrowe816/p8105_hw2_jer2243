@@ -83,6 +83,7 @@ mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel 
 mr_trashwheel_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
          trashwheel = 1)
+  
 ```
 
 ## Import and clean Professor Trash Wheel Data
@@ -106,5 +107,26 @@ gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collec
 gwynnda_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
          trashwheel=3)
+```
+
+## Join the 3 trashwheel datasets
+```{r}
+trashwheel_data =
+  full_join(mr_trashwheel_data, prof_trashwheel_data, gwynnda_data, by = "Dumpster")
+
+```
+
+ DATA DESCRIPTION HERE
+ 
+ 
+
+# Problem 3
+
+## Import MCI amyloid and baseline data
+```{r}
+mci_amyloid = read_csv("data_mci/mci_amyloid.csv")
+
+MCI_baseline = read_csv("data_mci/mci_baseline.csv")
+
 ```
 
