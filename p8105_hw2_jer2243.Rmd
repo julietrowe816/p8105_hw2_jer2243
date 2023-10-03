@@ -139,8 +139,20 @@ The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r nco
 ## Import and clean MCI baseline data
 ```{r}
 MCI_baseline = read_csv("data_mci/mci_baseline.csv") |>
-  janitor::clean_names() |>
-  filter(age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period != ".")
+  janitor::clean_names()
+
+MCI_baseline_final <- subset(MCI_baseline, 
+                       age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period >= age_at_the_study_baseline | age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period == ".")
 
 ```
+
+The `MCI_baseline_final` data has `r nrow(MCI_baseline_final)` observations and `r ncol(MCI_baseline_final)` variables.......
+
+## Import and clean MCI amyloid data
+```{r}
+MCI_amyloid = read_csv("data_mci/mci_amyloid.csv") |>
+  janitor::clean_names()
+```
+
+
 
