@@ -78,7 +78,7 @@ The `pols` data has `r nrow(pols)` observations and `r ncol(pols)` variables and
 
 ```{r}
 library(readxl)
-mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
+mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
 
 mr_trashwheel_data_tidy = mr_trashwheel_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
@@ -91,7 +91,7 @@ mr_trashwheel_data_tidy = mr_trashwheel_data |>
 
 ```{r}
 library(readxl)
-prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M97")
+prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M97")
 
 prof_trashwheel_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
@@ -103,7 +103,7 @@ prof_trashwheel_data |>
 
 ```{r}
 library(readxl)
-gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202207 Trash Wheel Collection Data.xlsx", sheet=3, range="A2:K110")
+gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=3, range="A2:K110")
 
 gwynnda_data |>
   mutate(homes_powered = (`Weight (tons)`*500/30),
@@ -121,6 +121,11 @@ glimpse(trashwheel_data)
 ```
 
 This combined dataset has data from all three trashwheels, including 751 observations and 17 variables. Some key variables include dumpster, month, year, date, weight_tons, and homes_powered.
+
+## Total weight of trash collected by Prof Trashwheel
+```{r}
+
+```
 
  
  
