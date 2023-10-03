@@ -78,12 +78,13 @@ The `pols` data has `r nrow(pols)` observations and `r ncol(pols)` variables and
 
 ```{r}
 library(readxl)
-mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N550")
+mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=1, range="A2:N587") |>
+  janitor::clean_names()
 
 mr_trashwheel_data_tidy = mr_trashwheel_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30),
+  mutate(homes_powered = (weight_tons*500/30),
          trashwheel = 1,
-         Year = as.numeric(Year))
+         year = as.numeric(year))
   
 ```
 
@@ -91,10 +92,11 @@ mr_trashwheel_data_tidy = mr_trashwheel_data |>
 
 ```{r}
 library(readxl)
-prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M97")
+prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M109") |>
+  janitor::clean_names()
 
 prof_trashwheel_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30),
+  mutate(homes_powered = (weight_tons*500/30),
          trashwheel = 2)
 
 ```
@@ -103,10 +105,11 @@ prof_trashwheel_data |>
 
 ```{r}
 library(readxl)
-gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=3, range="A2:K110")
+gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=4, range="A2:L159") |>
+  janitor::clean_names()
 
 gwynnda_data |>
-  mutate(homes_powered = (`Weight (tons)`*500/30),
+  mutate(homes_powered = (weight_tons*500/30),
          trashwheel=3)
 ```
 
@@ -120,23 +123,23 @@ glimpse(trashwheel_data)
 
 ```
 
-This combined dataset has data from all three trashwheels, including 751 observations and 17 variables. Some key variables include dumpster, month, year, date, weight_tons, and homes_powered.
+The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r ncol(trashwheel_data)` variables.......
 
-## Total weight of trash collected by Prof Trashwheel
-```{r}
 
-```
+
+## Total weight of trash collected by Prof Trashwheel is `r sum(pull(prof_trashwheel_data, weight_tons))`.
+
 
  
- 
+## Total number of cigarette butts collected by Gwynnda in 2021 is `r sum(pull(filter(gwynnda_data, month == "July", year == "2021"), cigarette_butts))`
+
 
 # Problem 3
 
-## Import MCI amyloid and baseline data
+## Import MCI baseline data
 ```{r}
-mci_amyloid = read_csv("data_mci/mci_amyloid.csv")
-
-MCI_baseline = read_csv("data_mci/mci_baseline.csv")
+MCI_baseline = read_csv("data_mci/mci_baseline.csv") |>
+  janitor::clean_names()
 
 ```
 
