@@ -136,10 +136,11 @@ The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r nco
 
 # Problem 3
 
-## Import MCI baseline data
+## Import and clean MCI baseline data
 ```{r}
 MCI_baseline = read_csv("data_mci/mci_baseline.csv") |>
-  janitor::clean_names()
+  janitor::clean_names() |>
+  filter(age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period != ".")
 
 ```
 
