@@ -144,15 +144,30 @@ MCI_baseline = read_csv("data_mci/mci_baseline.csv") |>
 MCI_baseline_final <- subset(MCI_baseline, 
                        age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period >= age_at_the_study_baseline | age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period == ".")
 
+names(MCI_baseline_final)[names(MCI_baseline_final) == "x1"] <- "study_id"
+
 ```
 
-The `MCI_baseline_final` data has `r nrow(MCI_baseline_final)` observations and `r ncol(MCI_baseline_final)` variables.......
+The `MCI_baseline_final` data has `r nrow(MCI_baseline_final)` observations and `r ncol(MCI_baseline_final)` variables....... This means that `r nrow(MCI_baseline_final)` participants were recruited.
+
+Of these participants, `r nrow(subset(MCI_baseline_final, age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period != "."))` developed MCI.
+
+The average age at the study baseline is .....
+
 
 ## Import and clean MCI amyloid data
 ```{r}
 MCI_amyloid = read_csv("data_mci/mci_amyloid.csv") |>
   janitor::clean_names()
-```
 
+```
+DATA DESCRIPTION
+Yes, some participants only appear in the cleaned amyloid dataset and not hte cleaned baseline dataset, as the amyloid dataset has 488 observations and the baseline only has 480. 
+
+## Join baseline and amyloid data
+```{r}
+joined_data = 
+  inner_join(MCI_baseline_final, MCI_amyloid, by = "study_id")
+```
 
 
