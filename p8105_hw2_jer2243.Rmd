@@ -123,7 +123,7 @@ glimpse(trashwheel_data)
 
 ```
 
-The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r ncol(trashwheel_data)` variables.......
+The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r ncol(trashwheel_data)` variables and describes the trash collected by different water wheels in the harbor of Baltimore, MD. The average weight (in tons) collected by the three trashwheels, Mr. Trashwheel, Professor Trashwheel, and Gwynnda, is `r mean(pull(trashwheel_data, weight_tons))`. The average number of homes powered by all three trash wheels is `r mean(pull(trashwheel_data, weight_tons))`
 
 
 
