@@ -138,28 +138,28 @@ The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r nco
 
 ## Import and clean MCI baseline data
 ```{r}
-MCI_baseline = read_csv("data_mci/mci_baseline.csv") |>
+MCI_baseline = read_csv("data_mci/mci_baseline.csv", skip = 1) |>
   janitor::clean_names()
 
-MCI_baseline_final <- subset(MCI_baseline, 
-                       age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period >= age_at_the_study_baseline | age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period == ".")
+MCI_baseline_final <- subset(MCI_baseline, age_at_onset >= current_age | age_at_onset == ".")
 
-names(MCI_baseline_final)[names(MCI_baseline_final) == "x1"] <- "study_id"
+names(MCI_baseline_final)[names(MCI_baseline_final) == "id"] <- "study_id"
+
 
 ```
 
 The `MCI_baseline_final` data has `r nrow(MCI_baseline_final)` observations and `r ncol(MCI_baseline_final)` variables....... This means that `r nrow(MCI_baseline_final)` participants were recruited.
 
-Of these participants, `r nrow(subset(MCI_baseline_final, age_at_the_onset_of_mci_missing_if_a_subject_remains_mci_free_during_the_follow_up_period != "."))` developed MCI.
+Of these participants, `r nrow(subset(MCI_baseline_final, age_at_onset != "."))` developed MCI.
 
-The average age at the study baseline is .....
+The average age at the study baseline is `r mean(pull(MCI_baseline_final, current_age))`
 
-`r sum(with(MCI_baseline_final, x1_apoe4_carrier_0_apoe4_non_carrier == 1)) / nrow(MCI_baseline_final) * 100`% of women in the study are APOE4 carriers.
+`r sum(with(MCI_baseline_final, apoe4 == 1)) / nrow(MCI_baseline_final) * 100`% of women in the study are APOE4 carriers.
 
 
 ## Import and clean MCI amyloid data
 ```{r}
-MCI_amyloid = read_csv("data_mci/mci_amyloid.csv") |>
+MCI_amyloid = read_csv("data_mci/mci_amyloid.csv", skip=1) |>
   janitor::clean_names()
 
 ```
