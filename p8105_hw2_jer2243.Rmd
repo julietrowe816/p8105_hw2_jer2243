@@ -154,6 +154,8 @@ Of these participants, `r nrow(subset(MCI_baseline_final, age_at_the_onset_of_mc
 
 The average age at the study baseline is .....
 
+`r sum(with(MCI_baseline_final, x1_apoe4_carrier_0_apoe4_non_carrier == 1)) / nrow(MCI_baseline_final) * 100`% of women in the study are APOE4 carriers.
+
 
 ## Import and clean MCI amyloid data
 ```{r}
@@ -164,10 +166,12 @@ MCI_amyloid = read_csv("data_mci/mci_amyloid.csv") |>
 DATA DESCRIPTION
 Yes, some participants only appear in the cleaned amyloid dataset and not hte cleaned baseline dataset, as the amyloid dataset has 488 observations and the baseline only has 480. 
 
-## Join baseline and amyloid data
+## Join baseline and amyloid data and export
 ```{r}
 joined_data = 
   inner_join(MCI_baseline_final, MCI_amyloid, by = "study_id")
+
+write.csv(joined_data, file = "data_mci/joined_data.csv")
 ```
 
 
