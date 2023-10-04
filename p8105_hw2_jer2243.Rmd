@@ -84,7 +84,8 @@ mr_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel 
 mr_trashwheel_data_tidy = mr_trashwheel_data |>
   mutate(homes_powered = (weight_tons*500/30),
          trashwheel = 1,
-         year = as.numeric(year))
+         year = as.numeric(year)) |>
+  drop_na()
   
 ```
 
@@ -95,9 +96,10 @@ library(readxl)
 prof_trashwheel_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=2, range="A2:M109") |>
   janitor::clean_names()
 
-prof_trashwheel_data |>
+prof_trashwheel_data_final = prof_trashwheel_data |>
   mutate(homes_powered = (weight_tons*500/30),
-         trashwheel = 2)
+         trashwheel = 2) |>
+  drop_na()
 
 ```
 
@@ -108,22 +110,21 @@ library(readxl)
 gwynnda_data = read_excel("~/Desktop/p8105_hw2_jer2243/202309 Trash Wheel Collection Data.xlsx", sheet=4, range="A2:L159") |>
   janitor::clean_names()
 
-gwynnda_data |>
+gwynnda_data_final = gwynnda_data |>
   mutate(homes_powered = (weight_tons*500/30),
-         trashwheel=3)
+         trashwheel=3) |>
+  drop_na()
 ```
 
 ## Join the 3 trashwheel datasets
 ```{r}
 trashwheel_data =
-  bind_rows(mr_trashwheel_data_tidy, prof_trashwheel_data, gwynnda_data) |>
+  bind_rows(mr_trashwheel_data_tidy, prof_trashwheel_data_final, gwynnda_data_final) |>
   janitor::clean_names()
-
-glimpse(trashwheel_data)
 
 ```
 
-The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r ncol(trashwheel_data)` variables and describes the trash collected by different water wheels in the harbor of Baltimore, MD. The average weight (in tons) collected by the three trashwheels, Mr. Trashwheel, Professor Trashwheel, and Gwynnda, is `r mean(pull(trashwheel_data, weight_tons))`. The average number of homes powered by all three trash wheels is `r mean(pull(trashwheel_data, weight_tons))`
+The `trashwheel_data` data has `r nrow(trashwheel_data)` observations and `r ncol(trashwheel_data)` variables and describes the trash collected by different water wheels in the harbor of Baltimore, MD. The average weight (in tons) collected by the three trashwheels, Mr. Trashwheel, Professor Trashwheel, and Gwynnda, is `r mean(pull(trashwheel_data, weight_tons))`. The average number of homes powered by all three trash wheels is `r mean(pull(trashwheel_data, homes_powered))`
 
 
 
